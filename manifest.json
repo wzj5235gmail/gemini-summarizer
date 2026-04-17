@@ -1,0 +1,28 @@
+{
+    "manifest_version": 3,
+    "name": "Gemini 网页总结助手",
+    "version": "1.0",
+    "description": "右键点击任意页面，提取主要文字并发送到 Gemini 进行自动总结。",
+    "permissions": [
+        "contextMenus",
+        "storage",
+        "activeTab",
+        "scripting"
+    ],
+    "host_permissions": [
+        "<all_urls>"
+    ],
+    "background": {
+        "service_worker": "background.js"
+    },
+    "content_scripts": [
+        {
+            "matches": [
+                "https://gemini.google.com/*"
+            ],
+            "js": [
+                "gemini_injector.js"
+            ]
+        }
+    ]
+}
