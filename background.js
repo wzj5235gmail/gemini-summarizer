@@ -63,7 +63,7 @@ chrome.runtime.onInstalled.addListener(() => {
 function extractPageText() {
     let contentElement = document.querySelector('article') || document.querySelector('main') || document.body;
     let text = contentElement.innerText || "";
-    text = text.replace(/\s+/g, ' ').trim().substring(0, 15000);
+    text = text.replace(/\s+/g, ' ').trim().substring(0, 100000);
     return text;
 }
 
