@@ -1,8 +1,8 @@
 {
     "manifest_version": 3,
     "name": "AI 网页总结助手",
-    "version": "2.0",
-    "description": "右键点击任意页面，提取主要文字并发送到 Gemini、ChatGPT、Claude、Grok 或 Perplexity 进行自动总结。",
+    "version": "2.1",
+    "description": "右键点击任意页面，提取主要文字并发送到 Gemini、ChatGPT、Claude、Grok、Perplexity 或豆包进行自动总结。",
     "permissions": [
         "contextMenus",
         "storage",
@@ -35,6 +35,10 @@
         {
             "matches": ["https://www.perplexity.ai/*", "https://perplexity.ai/*"],
             "js": ["perplexity_injector.js"]
+        },
+        {
+            "matches": ["https://www.doubao.com/*", "https://doubao.com/*"],
+            "js": ["doubao_injector.js"]
         }
     ]
 }

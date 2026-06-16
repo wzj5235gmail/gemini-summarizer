@@ -1,10 +1,10 @@
 # AI 网页总结助手 (Chrome Extension)
 
-这是一个 Chrome 浏览器扩展，可以快速提取当前网页的主要文字内容，并一键发送至你选择的 AI 平台进行智能总结。支持 **Gemini、ChatGPT、Claude、Grok、Perplexity** 五大平台，以及三种总结模式。
+这是一个 Chrome 浏览器扩展，可以快速提取当前网页的主要文字内容，并一键发送至你选择的 AI 平台进行智能总结。支持 **Gemini、ChatGPT、Claude、Grok、Perplexity、豆包** 六大平台，以及三种总结模式。
 
 ## 🚀 主要功能
 
-- **多平台支持**：可自由选择将内容发送至 Gemini、ChatGPT、Claude、Grok 或 Perplexity。
+- **多平台支持**：可自由选择将内容发送至 Gemini、ChatGPT、Claude、Grok、Perplexity 或豆包。
 - **智能正文提取**：自动识别页面中的 `<article>` 或 `<main>` 标签，精准抓取网页核心内容。
 - **多维度总结选项**：通过右键菜单提供三种预设提示词（Prompt）：
   - **一句话简短总结**：快速获取核心大意。
@@ -22,7 +22,8 @@
 ├── chatgpt_injector.js     # ChatGPT 页面注入脚本
 ├── claude_injector.js      # Claude 页面注入脚本
 ├── grok_injector.js        # Grok 页面注入脚本
-└── perplexity_injector.js  # Perplexity 页面注入脚本
+├── perplexity_injector.js  # Perplexity 页面注入脚本
+└── doubao_injector.js      # 豆包页面注入脚本
 ```
 
 ## 🛠️ 安装步骤
@@ -63,3 +64,4 @@
 | Claude | claude.ai |
 | Grok | grok.com |
 | Perplexity | perplexity.ai |
+| 豆包 | doubao.com |

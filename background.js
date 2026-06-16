@@ -3,7 +3,8 @@ const AI_CONFIG = {
     chatgpt:    { storageKey: 'pendingChatGPTQuery',    url: 'https://chatgpt.com/' },
     claude:     { storageKey: 'pendingClaudeQuery',     url: 'https://claude.ai/new' },
     grok:       { storageKey: 'pendingGrokQuery',       url: 'https://grok.com/' },
-    perplexity: { storageKey: 'pendingPerplexityQuery', url: 'https://www.perplexity.ai/' }
+    perplexity: { storageKey: 'pendingPerplexityQuery', url: 'https://www.perplexity.ai/' },
+    doubao:     { storageKey: 'pendingDoubaoQuery',     url: 'https://www.doubao.com/chat/' }
 };
 
 const PROMPTS = {
@@ -17,7 +18,8 @@ const AI_LABELS = {
     chatgpt:    'ChatGPT',
     claude:     'Claude',
     grok:       'Grok',
-    perplexity: 'Perplexity'
+    perplexity: 'Perplexity',
+    doubao:     '豆包'
 };
 
 chrome.runtime.onInstalled.addListener(() => {
