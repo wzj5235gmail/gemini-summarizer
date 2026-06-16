@@ -13,25 +13,37 @@ chrome.storage.local.get(['pendingPerplexityQuery'], function(result) {
         clearInterval(checkInputExist);
         inputBox.focus();
 
-        if (inputBox.tagName === 'TEXTAREA') {
+        document.execCommand('insertText', false, queryText);
+
+        if (inputBox.tagName === 'TEXTAREA' && !inputBox.value) {
             const nativeSetter = Object.getOwnPropertyDescriptor(window.HTMLTextAreaElement.prototype, 'value').set;
             nativeSetter.call(inputBox, queryText);
-        } else {
-            document.execCommand('insertText', false, queryText);
+            inputBox.dispatchEvent(new Event('input', { bubbles: true }));
+            inputBox.dispatchEvent(new Event('change', { bubbles: true }));
         }
-        inputBox.dispatchEvent(new Event('input', { bubbles: true }));
 
         let retries = 0;
         const checkButtonExist = setInterval(() => {
-            const sendButton = document.querySelector('[data-testid="ask-input-submit-button"]') ||
+            const sendButton =
+                document.querySelector('[data-testid="ask-input-submit-button"]') ||
                 document.querySelector('button[aria-label="Submit"]') ||
+                document.querySelector('button[aria-label="发送"]') ||
                 document.querySelector('button[type="submit"]');
 
             if (sendButton && !sendButton.disabled) {
                 clearInterval(checkButtonExist);
                 sendButton.click();
+                return;
             }
-            if (++retries > 20) clearInterval(checkButtonExist);
+
+            if (++retries >= 10) {
+                clearInterval(checkButtonExist);
+                // Perplexity submits on Enter
+                inputBox.dispatchEvent(new KeyboardEvent('keydown', {
+                    key: 'Enter', code: 'Enter', keyCode: 13, which: 13,
+                    bubbles: true, cancelable: true
+                }));
+            }
         }, 500);
     }, 500);
 

@@ -12,14 +12,18 @@ chrome.storage.local.get(['pendingGrokQuery'], function(result) {
         clearInterval(checkInputExist);
         inputBox.focus();
 
-        if (inputBox.tagName === 'TEXTAREA') {
+        // execCommand works on focused textarea and triggers React's synthetic events
+        document.execCommand('insertText', false, queryText);
+
+        // Fallback: if execCommand didn't fill the value, use native setter
+        if (inputBox.tagName === 'TEXTAREA' && !inputBox.value) {
             const nativeSetter = Object.getOwnPropertyDescriptor(window.HTMLTextAreaElement.prototype, 'value').set;
             nativeSetter.call(inputBox, queryText);
-        } else {
-            document.execCommand('insertText', false, queryText);
+            inputBox.dispatchEvent(new Event('input', { bubbles: true }));
+            inputBox.dispatchEvent(new Event('change', { bubbles: true }));
         }
-        inputBox.dispatchEvent(new Event('input', { bubbles: true }));
 
+        // Try clicking the send button first; fall back to Enter key
         let retries = 0;
         const checkButtonExist = setInterval(() => {
             const sendButton = document.querySelector('button[type="submit"]') ||
@@ -29,8 +33,17 @@ chrome.storage.local.get(['pendingGrokQuery'], function(result) {
             if (sendButton && !sendButton.disabled) {
                 clearInterval(checkButtonExist);
                 sendButton.click();
+                return;
             }
-            if (++retries > 20) clearInterval(checkButtonExist);
+
+            if (++retries >= 10) {
+                clearInterval(checkButtonExist);
+                // Grok uses Enter to submit
+                inputBox.dispatchEvent(new KeyboardEvent('keydown', {
+                    key: 'Enter', code: 'Enter', keyCode: 13, which: 13,
+                    bubbles: true, cancelable: true
+                }));
+            }
         }, 500);
     }, 500);
 
