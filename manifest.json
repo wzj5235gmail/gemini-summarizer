@@ -1,8 +1,8 @@
 {
     "manifest_version": 3,
-    "name": "Gemini 网页总结助手",
-    "version": "1.0",
-    "description": "右键点击任意页面，提取主要文字并发送到 Gemini 进行自动总结。",
+    "name": "AI 网页总结助手",
+    "version": "2.0",
+    "description": "右键点击任意页面，提取主要文字并发送到 Gemini、ChatGPT、Claude、Grok 或 Perplexity 进行自动总结。",
     "permissions": [
         "contextMenus",
         "storage",
@@ -17,12 +17,24 @@
     },
     "content_scripts": [
         {
-            "matches": [
-                "https://gemini.google.com/*"
-            ],
-            "js": [
-                "gemini_injector.js"
-            ]
+            "matches": ["https://gemini.google.com/*"],
+            "js": ["gemini_injector.js"]
+        },
+        {
+            "matches": ["https://chatgpt.com/*", "https://chat.openai.com/*"],
+            "js": ["chatgpt_injector.js"]
+        },
+        {
+            "matches": ["https://claude.ai/*"],
+            "js": ["claude_injector.js"]
+        },
+        {
+            "matches": ["https://grok.com/*"],
+            "js": ["grok_injector.js"]
+        },
+        {
+            "matches": ["https://www.perplexity.ai/*", "https://perplexity.ai/*"],
+            "js": ["perplexity_injector.js"]
         }
     ]
 }
